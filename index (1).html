@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Demo della Digital Business Card NFC Smart Solutions.">
+  <title>NFC Smart Solutions | Digital Business Card Demo</title>
+  <style>
+    :root { color-scheme: light; --ink:#152238; --muted:#5e6b7e; --line:#e3eaf0; --accent:#1667dc; }
+    * {box-sizing:border-box}
+    body {margin:0; min-height:100vh; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); background:linear-gradient(160deg,#e7effa,#f7fafc 60%,#e6f4f2); padding:32px 16px}
+    main {max-width:440px;margin:0 auto}
+    .card {overflow:hidden;background:#fff;border:1px solid #e7edf5;border-radius:26px;box-shadow:0 18px 60px rgba(24,44,79,.12)}
+    .header {background:linear-gradient(145deg,#0f213e,#164a83);padding:34px 27px 30px;color:#fff;text-align:center}
+    .monogram {display:grid;place-items:center;margin:0 auto 17px;width:76px;height:76px;border-radius:23px;background:linear-gradient(145deg,#46d3c3,#2186ee);font-weight:800;font-size:24px;letter-spacing:-1px;box-shadow:0 12px 26px #061a3e55}
+    .eyebrow {text-transform:uppercase;letter-spacing:.17em;font-size:11px;font-weight:700;color:#aaddfa;margin:0 0 8px}
+    h1 {font-size:27px;line-height:1.13;letter-spacing:-.8px;margin:0 0 10px}
+    .subtitle {color:#dbe9ff;font-size:14px;margin:0;line-height:1.5}
+    .body {padding:27px}
+    .badge {display:inline-block;border-radius:100px;background:#e9f5f2;color:#126457;padding:6px 11px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    h2 {font-size:19px;letter-spacing:-.3px;margin:14px 0 9px}
+    .intro {color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 23px}
+    .primary,.secondary {width:100%;min-height:49px;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:13px;font:700 14px system-ui,-apple-system,sans-serif;cursor:pointer;text-decoration:none}
+    .primary {border:0;background:var(--accent);color:white}
+    .primary:hover {background:#1156bc}
+    .secondary {margin-top:10px;border:1px solid #ccd8e6;background:#fff;color:var(--ink)}
+    .secondary:hover {background:#f5f9fe}
+    .section-title {margin:24px 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#6a7c92}
+    .features {display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .feature {border:1px solid var(--line);border-radius:13px;padding:13px 11px;font-size:12px;font-weight:650;background:#fafcfe}
+    .feature span {display:block;font-size:21px;margin-bottom:7px}
+    .note {background:#f5f8fc;border-left:3px solid #78a7e9;padding:12px 13px;border-radius:7px;color:#53647b;font-size:12px;line-height:1.6;margin-top:22px}
+    footer {text-align:center;color:#67788b;font-size:11px;padding:19px 12px;line-height:1.6}
+    #status {min-height:18px;margin-top:9px;text-align:center;font-size:12px;color:#126457}
+    @media (max-width:380px) {.header{padding:28px 19px}.body{padding:23px 19px}h1{font-size:24px}}
+  </style>
+</head>
+<body>
+  <main>
+    <article class="card">
+      <header class="header">
+        <div class="monogram" aria-hidden="true">NFC</div>
+        <p class="eyebrow">Digital products · Smart connections</p>
+        <h1>NFC Smart<br>Solutions</h1>
+        <p class="subtitle">Un contatto. Infinite possibilità.</p>
+      </header>
+      <div class="body">
+        <span class="badge">Demo · MVP 01</span>
+        <h2>Il biglietto da visita, evoluto.</h2>
+        <p class="intro">Avvicina una tessera NFC al telefono per aprire una pagina digitale sempre aggiornabile. Nessuna app necessaria per consultarla.</p>
+        <button type="button" class="primary" id="saveContact">↓ &nbsp; Scarica contatto demo (.vcf)</button>
+        <button type="button" class="secondary" id="shareCard">↗ &nbsp; Condividi questa pagina</button>
+        <div id="status" role="status" aria-live="polite"></div>
+        <p class="section-title">Cosa comprenderà il prodotto</p>
+        <div class="features">
+          <div class="feature"><span aria-hidden="true">📱</span>Accesso con NFC</div>
+          <div class="feature"><span aria-hidden="true">🔄</span>Contenuti aggiornabili</div>
+          <div class="feature"><span aria-hidden="true">👤</span>Contatto vCard</div>
+          <div class="feature"><span aria-hidden="true">▦</span>QR code alternativo</div>
+        </div>
+        <p class="note"><strong>Prototipo dimostrativo.</strong> I pulsanti salvano un contatto di esempio e condividono questo sito. Email, telefono, WhatsApp e LinkedIn saranno collegati solo dopo la definizione di recapiti pubblici del progetto. Il QR code verrà aggiunto in una prossima versione.</p>
+      </div>
+    </article>
+    <footer>NFC Smart Solutions · MVP 01 · Ottobre 2026<br>Pagina demo pubblicata con GitHub Pages</footer>
+  </main>
+  <script>
+    const status = document.getElementById('status');
+    document.getElementById('saveContact').addEventListener('click', () => {
+      const vcard = [
+        'BEGIN:VCARD','VERSION:3.0','FN:NFC Smart Solutions (Demo)',
+        'ORG:NFC Smart Solutions','TITLE:Digital Business Card Demo',
+        'URL:' + window.location.href.split('#')[0],
+        'NOTE:Contatto dimostrativo - nessun recapito personale.',
+        'END:VCARD'
+      ].join('\r\n');
+      const blob = new Blob([vcard], {type:'text/vcard;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url; link.download = 'nfc-smart-solutions-demo.vcf';
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      status.textContent = 'Contatto demo scaricato.';
+    });
+    document.getElementById('shareCard').addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({title:'NFC Smart Solutions',url:location.href});
+          status.textContent = 'Condivisione avviata.';
+        } else if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(location.href);
+          status.textContent = 'Link copiato negli appunti.';
+        } else {
+          status.textContent = 'Copia il link dalla barra degli indirizzi.';
+        }
+      } catch(e) { if (e.name !== 'AbortError') status.textContent = 'Puoi copiare il link dalla barra degli indirizzi.'; }
+    });
+  </script>
+</body>
+</html>
