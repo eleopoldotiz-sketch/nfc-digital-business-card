@@ -116,7 +116,8 @@
       const vcard = [
         'BEGIN:VCARD','VERSION:3.0','FN:NFC Smart Solutions (Demo)',
         'ORG:NFC Smart Solutions','TITLE:Digital Business Card Demo',
-        'URL:' + window.location.href.split('#')[0],
+        
+'URL:' + window.location.origin + window.location.pathname,
         'NOTE:Contatto dimostrativo - nessun recapito personale.',
         'END:VCARD'
       ].join('\r\n');
